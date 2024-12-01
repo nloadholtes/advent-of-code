@@ -17,7 +17,13 @@ def read_and_split(filename):
 
 def main():
     filename = sys.argv[1]
-    print(read_and_split(filename))
+    left, right = read_and_split(filename)
+    # Get the differences
+    differences = []
+    for x in zip(left, right):
+        differences.append(abs(int(x[0])-int(x[1])))
+    print(f"differences: {sum(differences)}")
+
 
 if __name__ == "__main__":
     main()
