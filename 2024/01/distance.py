@@ -19,7 +19,8 @@ def similarity(left, right):
     """Return the count of left multiplied by how many times it appears in the right"""
     similarity = []
     for x in left:
-        pass
+        similarity.append(right.count(x) * x)
+    return similarity
 
 
 def main():
@@ -30,7 +31,7 @@ def main():
     for x in zip(left, right):
         differences.append(abs(x[0]-x[1]))
     print(f"differences: {sum(differences)}")
-
+    print(f"similarity score: {sum(similarity(left, right))}")
 
 if __name__ == "__main__":
     main()
