@@ -11,9 +11,16 @@ def read_and_split(filename):
     with open(filename) as f:
         for line in f:
             l, r = line.split()
-            left.append(l)
-            right.append(r)
+            left.append(int(l))
+            right.append(int(r))
     return sorted(left), sorted(right)
+
+def similarity(left, right):
+    """Return the count of left multiplied by how many times it appears in the right"""
+    similarity = []
+    for x in left:
+        pass
+
 
 def main():
     filename = sys.argv[1]
@@ -21,7 +28,7 @@ def main():
     # Get the differences
     differences = []
     for x in zip(left, right):
-        differences.append(abs(int(x[0])-int(x[1])))
+        differences.append(abs(x[0]-x[1]))
     print(f"differences: {sum(differences)}")
 
 
