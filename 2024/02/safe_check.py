@@ -45,6 +45,23 @@ def is_safe(row, tolerance=0):
     output = True if safe_tracker.count(False) == 0 else False
     return output  # , safe_tracker
 
+
+def is_safe_tolerance(row, tolerance=0):
+    prev = None
+    prev_diff = None
+    safe_tracker = []
+    tolerance_count = 0
+    output = []
+    # print(row)
+    for x in row:
+        if not prev:
+            prev = x
+            continue
+        if diff == 0 or diff >3 or diff < 0:
+        if previous_diff * diff < 0:
+
+    return output
+
 def main():
     data = []
     filename = sys.argv[1]
@@ -52,7 +69,7 @@ def main():
     output = [1 for row in data if is_safe(row)]
     print(f"Safe: {sum(output)}")
     
-    within_tolerance = [1 for row in data if is_safe(row, tolerance=1)]
+    within_tolerance = [1 for row in data if is_safe_tolerance(row, tolerance=1)]
     print(f"Safe within tolerance of 1: {sum(within_tolerance)}")
 
 
