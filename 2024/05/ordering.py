@@ -13,8 +13,13 @@ def create_mapping(rules):
     return output
 
 def is_order_correct(mappings, update):
+    seen = []
     for page in update:
-        pass
+        seen.append(page)
+        values = mappings.get(page, [])  # for pages we don't care about order
+        for value in values:
+            if value in seen:
+                return False
     return True
 
 if __name__ == "__main__":
