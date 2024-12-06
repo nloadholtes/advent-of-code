@@ -1,6 +1,6 @@
 import sys
 
-GUARD="<>^v"
+GUARD="^>v<"
 
 def move(map):
     guard_pos = []
@@ -19,12 +19,24 @@ def move(map):
         return False
     print(f"Guard: {guard_pos}")
     # What is around the guard?
-    sub_map = [map[x-1][y], # up
-               map[x + 1][y], # down
-               map[x][y-1], # left
-               map[x][y +1]] # right
+    sub_map = {"^": map[x-1][y], # up
+               "v": map[x + 1][y], # down
+               "<": map[x][y-1], # left
+    ">": map[x][y +1]} # right
 
     # Take step
+    guard_facing = map[guard_pos[0]][guard_pos[1]]
+    print(f"Guard facing: {guard_facing}")
+    if sub_map[guard_facing] == "#":
+        # Turn right
+        indx = GUARD.index(guard_facing) + 1
+        if indx > len(GUARD):
+            indx = 0
+        map[guard_pos[0]][guard_pos[1]] = GUARD[indx]
+        return True
+    #map[guard_pos[0]][guard_pos[1]] = sub_map[]
+    
+        
     return True
 
 
