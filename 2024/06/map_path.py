@@ -12,7 +12,7 @@ def move(map):
     max_h = len(map)
     max_w = len(map[0])
     # where is the guard?
-    print_map(map)
+    #print_map(map)
     for x in range(max_h):
         for y in range(max_w):
             if map[x][y] in GUARD:
@@ -27,7 +27,7 @@ def move(map):
         return False, 1
     if guard_pos[1] in (0, max_w-1):
         return False, 1
-    print(f"Guard: {guard_pos}")
+    #print(f"Guard: {guard_pos}")
     # What is around the guard?
     sub_map = {"^": [map[x-1][y], x-1, y], # up
                "v": [map[x + 1][y], x+1, y], # down
@@ -36,7 +36,7 @@ def move(map):
 
     # Take step
     guard_facing = map[guard_pos[0]][guard_pos[1]]
-    print(f"Guard facing: {guard_facing}")
+    #print(f"Guard facing: {guard_facing}")
     if sub_map[guard_facing][0] == "#":
         # Turn right
         indx = GUARD.index(guard_facing) + 1
@@ -70,5 +70,5 @@ if __name__ == "__main__":
             break
         more, new_spot = move(data)
         counter += new_spot
-        print(counter)
+        #print(counter)
     print(f"Saw {counter} new spots")
