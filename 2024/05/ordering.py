@@ -38,6 +38,9 @@ def reorder(mappings, update):
         #print(f"---{output}")
         return output
     output = _process(mappings, update)
+    while prev_output != output:
+        prev_output = output
+        output = _process(mappings, output)
     #print(f"{update}\n{output}")
     return output
 
