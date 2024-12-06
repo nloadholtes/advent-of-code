@@ -33,17 +33,12 @@ def reorder(mappings, update):
             for value in values:
                 if value in output:
                     # reorder? Might need to pop until value fits?
-                    last= output.pop()
-                    prev = output.pop()
-                    output.append(last)
-                    output.append(prev)
-        print(f"---{output}")
+                    output.remove(value)
+                    output.append(value)
+        #print(f"---{output}")
         return output
     output = _process(mappings, update)
-    while prev_output != output:
-        prev_output = output
-        output = _process(mappings, output)
-    print(f"{update}\n{output}")
+    #print(f"{update}\n{output}")
     return output
 
 if __name__ == "__main__":
