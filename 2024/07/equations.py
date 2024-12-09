@@ -7,21 +7,19 @@ def is_valid(row):
     numbers = row[1]
     total = None
     #breakpoint()
-    print(f"Searching for {value}")
+    #print(f"Searching for {value}")
     all_states = list(product([True, False], repeat=len(numbers)-1))
     for state in all_states:
-        total = None
         nums = list(numbers)
         nums.reverse()
-        if total == None:
-            total = nums.pop()
+        total = nums.pop()
         for x in state:
             num = nums.pop()
             total = total * num if x else total + num
             #print(total)
-            if total == value:
-                print("FOUND ONE")
-                return True
+        if total == value:
+            #print("FOUND ONE")
+            return True
             #print(f"Total for {state}: {total}")
 
     return output
@@ -34,7 +32,6 @@ if __name__ == "__main__":
             value = int(line.split(":")[0])
             numbers = [int(x) for x in line.split(":")[1].split()]
             data.append([value, numbers])
-    print(data)
     output = []
     output = [x[0] for x in data if is_valid(x)]
     print(f"Sum of valid values: {sum(output)}")
