@@ -1,17 +1,28 @@
 import sys
+from itertools import product
 
 def is_valid(row):
     output = False
     value = row[0]
     numbers = row[1]
-    total = 1
-    for x in numbers:
-        total *= x
-        if total > value:
-            return False
-
-    if total == value:
-        output = True
+    total = None
+    #breakpoint()
+    print(f"Searching for {value}")
+    all_states = list(product([True, False], repeat=len(numbers)-1))
+    for state in all_states:
+        total = None
+        nums = list(numbers)
+        nums.reverse()
+        if total == None:
+            total = nums.pop()
+        for x in state:
+            num = nums.pop()
+            total = total * num if x else total + num
+            #print(total)
+            if total == value:
+                print("FOUND ONE")
+                return True
+            #print(f"Total for {state}: {total}")
 
     return output
 
