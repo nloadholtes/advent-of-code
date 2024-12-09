@@ -1,6 +1,8 @@
 import sys
 from itertools import product
 
+ops = [0,1,2]
+
 def is_valid(row):
     output = False
     value = row[0]
@@ -8,15 +10,23 @@ def is_valid(row):
     total = None
     #breakpoint()
     #print(f"Searching for {value}")
-    all_states = list(product([True, False], repeat=len(numbers)-1))
+    all_states = list(product(ops, repeat=len(numbers)-1))
     for state in all_states:
         nums = list(numbers)
         nums.reverse()
         total = nums.pop()
         for x in state:
             num = nums.pop()
-            total = total * num if x else total + num
+            if x == 0:
+                total = total * num
+            if x == 1:
+                total = total + num
+            # This next check slows it down significantly. Took 12 secs to finish on the m1
+            if x == 2:
+                total = int(str(total) + str(num))
             #print(total)
+            if total > value:
+                break
         if total == value:
             #print("FOUND ONE")
             return True
