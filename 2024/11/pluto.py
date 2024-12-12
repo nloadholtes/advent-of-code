@@ -1,5 +1,6 @@
 import sys
 from functools import lru_cache
+import gc
 
 def analyze_growth(data, target_iterations=25):
     """Claude came up with this as an idea to explore the growth rate to see if there
@@ -36,15 +37,17 @@ def analyze_growth(data, target_iterations=25):
 @lru_cache(maxsize=None)
 def calc_number(num):
     tmp_data = []
-    if len(num) %2==0:
+    num_len = len(str(num))
+    num = int(num)
+    if num_len %2==0:
         #breakpoint()
-        size = int(len(num)/2)
-        tmp_data.append(num[0:size])
-        tmp_data.append(str(int(num[size:])))
+        size = int(num_len/2)
+        tmp_data.append(int(str(num)[0:size]))
+        tmp_data.append(int(str(num)[size:]))
     elif int(num) == 0:
-        tmp_data.append("1")
+        tmp_data.append(1)
     else:
-        tmp_data.append(str(2024*int(num)))
+        tmp_data.append(2024*int(num))
     return tuple(tmp_data)
 
 if __name__ == "__main__":
@@ -53,14 +56,19 @@ if __name__ == "__main__":
     for x in range(blinks):
         tmp_data = []
         for num in data:
-            if not num:
+            if not num or num == '':
                 continue
             for y in calc_number(num):
                 tmp_data.append(y)
+        # Let's checkpoint to make future work faster
+        with open(f"blink-{x}.txt", "w") as f:
+            f.write(str(tmp_data))
 
         #print(f"--len: {len(tmp_data)}")
         #print(" ".join(tmp_data))
         data = tmp_data
+        if x % 5 == 0:
+            gc.collect()
 
     print(f"Length of stones: {len(data)}")
     print("2097446912 14168 4048 2 0 2 4 40 48 2024 40 48 80 96 2 8 6 7 6 0 3 2")
