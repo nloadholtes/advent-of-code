@@ -83,6 +83,42 @@ def defrag2(fs):
     output += [-9,] * max_replaced
     return output
 
+def defrag_cont(fs):
+    output = []
+    map_of_files ={}
+    rev_fs = list(fs)
+    rev_fs.reverse()
+    for x in rev_fs:
+        counter = map_of_files.get(x, 0)
+        counter += 1
+        map_of_files[x] = counter
+    del map_of_files[-9]
+    already_seen = []
+    # Iterate through the map_of_files, see if the counter matches a run of -9's
+    for key, value in map_of_files.items():
+        print(key)
+        for pos in range(len(output), len(fs)):
+            if fs[pos] in already_seen:
+                fs[pos] = -9
+                continue
+            if fs[pos] == -9:
+                overwrite = True
+                for z in range(value):
+                    if pos+z < len(fs) and fs[pos+z] != -9:
+                        overwrite = False
+                if overwrite:
+                    for z in range(value):
+                        output.append(key)
+                    already_seen.append(value)
+                    break
+                else:
+                    output.append(-9)
+            else:
+                output.append(fs[pos])
+        already_seen.append(value)
+    print(map_of_files)
+    return output
+
 def checksum(fs):
     output = []
     for x in range(len(fs)):
@@ -101,3 +137,5 @@ if __name__ == "__main__":
     #print_debug(fs2)
     print("0099811188827773336446555566..............")
     print(f"Checksum: {sum(checksum(fs2))}")
+    print(f"Compacted:")
+    print_debug(defrag_cont(fs))
