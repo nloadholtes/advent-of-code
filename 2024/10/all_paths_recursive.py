@@ -44,11 +44,12 @@ with open(sys.argv[1]) as f:
     for line in f.readlines():
         matrix.append([int(x) for x in line.strip()])
 
-print(matrix)
+#print(matrix)
 
 # Find all paths starting from 0
 all_paths = []
 path_map = {}
+distinct_path = {}
 for i in range(len(matrix)):
     for j in range(len(matrix[0])):
         if matrix[i][j] == 0:
@@ -56,10 +57,11 @@ for i in range(len(matrix)):
             all_paths.extend(paths)
             #breakpoint()
             path_map[(i,j)] = len(set([x[-1] for x in paths]))
+            distinct_path[(i,j)] = len(paths)
 
 # Print all found paths
-for i, path in enumerate(all_paths, 1):
-    print(f"Path {i}:", path)
+#for i, path in enumerate(all_paths, 1):
+#    print(f"Path {i}:", path)
 
 # Visualize one of the paths in the matrix
 def visualize_path(matrix, path):
@@ -76,16 +78,17 @@ def visualize_path(matrix, path):
 if all_paths:
     print("\nVisualization of first path:")
     #for x in all_paths:
-    print(visualize_path(matrix, all_paths[0]))
-    print(visualize_path(matrix, all_paths[1]))
-    print(visualize_path(matrix, all_paths[2]))
-    print(visualize_path(matrix, all_paths[3]))
-    print(visualize_path(matrix, all_paths[4]))
+    #print(visualize_path(matrix, all_paths[0]))
+    #print(visualize_path(matrix, all_paths[1]))
+    #print(visualize_path(matrix, all_paths[2]))
+    #print(visualize_path(matrix, all_paths[3]))
+    #print(visualize_path(matrix, all_paths[4]))
         #print(visualize_path(matrix, x))
-    print(visualize_path(matrix, all_paths[5]))
-    print(visualize_path(matrix, all_paths[6]))
+    #print(visualize_path(matrix, all_paths[5]))
+    #print(visualize_path(matrix, all_paths[6]))
         #print("**************")
 
 print(f"Path map: {path_map}")
 # NEed to get the unique set of final spots
 print(f"Sum: {sum(path_map.values())}")
+print(f"Distinct paths: {sum(distinct_path.values())}")
