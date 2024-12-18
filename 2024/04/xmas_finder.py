@@ -4,6 +4,9 @@ import sys
 
 PHRASE = "XMAS"
 
+# Writing this as a recursive function? Search only down and to right?
+# (Unless we are more than len(phrase) away from the left side)
+
 def count_phrase(lines, phrase=PHRASE):
     counter = 0
     def _line_counter(lin, counter):
